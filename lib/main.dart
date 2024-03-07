@@ -153,7 +153,47 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(8),
           color: Colors.black,
         ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [Humidity(text: '40'), Wind(text: '2')],
+              ),
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  Text Humidity({
+    required String text,
+  }) {
+    return Text(
+      'Humidity $text%',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text Wind({
+    required String text,
+  }) {
+    return Text(
+      'Wind ${text}km/h',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text PM10({
+    required String text,
+  }) {
+    return Text(
+      'PM10 $textμg/m³',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
     );
   }
 }
