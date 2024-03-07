@@ -153,21 +153,34 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(8),
           color: Colors.black,
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Humidity(text: '40'),
-                  SizedBox(
-                    width: 70,
-                  ),
-                  Wind(text: '2')
+                  Expanded(child: Humidity(text: '40')),
+                  Expanded(child: Wind(text: '2'))
                 ],
               ),
-            )
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Row(children: [
+                Expanded(child: PM10(text: '33.4')),
+                Expanded(child: Sunrise(text: '6:35'))
+              ]),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(child: UV(text: '2.2')),
+                  Expanded(child: Sunset(text: '17:55'))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -198,6 +211,36 @@ class _MyHomePageState extends State<MyHomePage> {
   }) {
     return Text(
       'PM10 $textμg/m³',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text Sunrise({
+    required String text,
+  }) {
+    return Text(
+      'Sunrise $text',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text UV({
+    required String text,
+  }) {
+    return Text(
+      'UV $text',
+      style: TextStyle(
+          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text Sunset({
+    required String text,
+  }) {
+    return Text(
+      'Sunset $text',
       style: TextStyle(
           color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
     );
