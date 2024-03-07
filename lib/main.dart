@@ -158,7 +158,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
-                children: [Humidity(text: '40'), Wind(text: '2')],
+                children: [
+                  Humidity(text: '40'),
+                  SizedBox(
+                    width: 70,
+                  ),
+                  Wind(text: '2')
+                ],
               ),
             )
           ],
