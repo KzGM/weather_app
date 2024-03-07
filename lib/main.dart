@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Weather App',
       theme: ThemeData(
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -63,136 +64,126 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[200],
-      appBar: AppBar(
-        centerTitle: true,
         backgroundColor: Colors.blue[200],
-        title: const Text(
-          '10.82, 206.24',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w400),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.blue[200],
+          title: const Text(
+            '10.82, 206.24',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400),
+          ),
+          actions: [
+            IconButton(
+                onPressed: null,
+                icon: Icon(Icons.menu, color: Colors.white, size: 24.0))
+          ],
         ),
-        actions: [
-          IconButton(
-              onPressed: null,
-              icon: Icon(Icons.menu, color: Colors.white, size: 24.0))
-        ],
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Container(
-                width: 228,
-                height: 45,
-                child: Text(
-                  'Ho Chi Minh City',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              Container(
-                width: 152,
-                height: 120,
-                child: Image.asset('assets/image/thunder_sun.png'),
-              ),
-              Container(
-                width: 86,
-                height: 26,
-                child: Text(
-                  'Soft light',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              Container(
-                width: 160,
-                height: 95,
-                child: Text(
-                  '32°C',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 64.0,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              Container(
-                  width: 360,
-                  height: 70,
-                  child: Text(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Container(
+                    child: Text(
+                      'Ho Chi Minh City',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 24.0, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    child: Image.asset('assets/image/thunder_sun.png'),
+                  ),
+                  Container(
+                    child: Text(
+                      'Soft light',
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '32°C',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 64.0, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                      child: Text(
                     'Duststorm, sandstorm, drifting or blowing snow',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400),
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
                   )),
-              weatherDetail()
-            ],
+                  SizedBox(
+                    height: 40,
+                  ),
+                  WeatherDetail()
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
-  Widget weatherDetail() {
+  Widget WeatherDetail() {
     return Opacity(
       opacity: 0.4,
-      child: Container(
-        width: 360,
-        height: 175,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.black,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(child: Humidity(text: '40')),
-                  Expanded(child: Wind(text: '2'))
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(children: [
-                Expanded(child: PM10(text: '33.4')),
-                Expanded(child: Sunrise(text: '6:35'))
-              ]),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Expanded(child: UV(text: '2.2')),
-                  Expanded(child: Sunset(text: '17:55'))
-                ],
-              )
-            ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WeatherDetailItem(text: 'Humidity', value: '40%'),
+                    WeatherDetailItem(text: 'Wind', value: '2km/h')
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      WeatherDetailItem(text: 'Humidity', value: '40%'),
+                      WeatherDetailItem(text: 'Humidity', value: '40%')
+                    ]),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    WeatherDetailItem(text: 'Humidity', value: '40%'),
+                    WeatherDetailItem(text: 'Humidity', value: '40%')
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Text Humidity({
-    required String text,
-  }) {
+  Widget WeatherDetailItem({required String text, required String value}) {
     return Text(
-      'Humidity $text%',
-      style: TextStyle(
-          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+      '$text $value',
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
     );
   }
 
@@ -201,8 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }) {
     return Text(
       'Wind ${text}km/h',
-      style: TextStyle(
-          color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
     );
   }
 
