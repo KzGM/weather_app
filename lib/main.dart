@@ -1,8 +1,14 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/OnClass/custom_scroll_widget.dart';
+import 'package:weather_app/OnClass/gridview.dart';
+import 'package:weather_app/OnClass/listview.dart';
+import 'package:weather_app/datepicker.dart';
+import 'package:weather_app/profile.dart';
 
 void main() {
   runApp(
@@ -22,11 +28,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Weather App',
       theme: ThemeData(
-        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 26, 34, 50)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '10.82, 206.24'),
+      onGenerateRoute: (settings){
+        switch (settings.name){
+          case '/':
+          return MaterialPageRoute(builder: (context) => const)
+        }
+      },
+      home: CustomScrollViewWidget(),
     );
   }
 }
@@ -68,6 +81,45 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(child: CheckboxGroup()),
+    );
+  }
+
+  Widget CheckboxGroup() {
+    return Wrap(
+      children: [
+        _buildCheckBox(title: 'Action'),
+        _buildCheckBox(title: 'Animation'),
+        _buildCheckBox(
+          title: 'Love',
+        ),
+        _buildCheckBox(title: 'Comedy'),
+      ],
+    );
+  }
+
+  Map<String, bool> _checkBoxValue = {
+    'Action': false,
+    'Animation': false,
+    'Love': false,
+    'Comedy': false,
+  };
+
+  Widget _buildCheckBox({required String title}) {
+    return CheckboxListTile(
+      title: Text(title),
+      value: _checkBoxValue[title],
+      onChanged: (newValue) {
+        setState(() {
+          _checkBoxValue[title] = newValue!;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
+  Widget Radio() {
+    return Scaffold(
       body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Row(
@@ -83,8 +135,11 @@ class _MyHomePageState extends State<MyHomePage> {
             _buildRadio('Other', Gender.other, Colors.purple),
           ],
         ),
+        SizedBox(
+          height: 10,
+        ),
         Text(
-          'Gender đang được chọn là $selectedGender',
+          'Gender đang được chọn là ${selectedGender.toString().split('.').last}',
           textAlign: TextAlign.center,
         )
       ])),
@@ -111,6 +166,8 @@ class _MyHomePageState extends State<MyHomePage> {
             )));
   }
 }
+  
+
 
 // @override
 //   Widget build(BuildContext context) {
